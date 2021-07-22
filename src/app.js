@@ -50,7 +50,7 @@ App = {
 
   loadAccount: async () => {
     // Set the current blockchain account
-    App.account = web3.eth.accounts[0];
+    web3.eth.defaultAccount = web3.eth.accounts[0];
   },
 
   loadContract: async () => {
@@ -91,7 +91,6 @@ App = {
     for (var i = 1; i <= taskCount; i++) {
       // Fetch the task data from the blockchain
       const task = await App.todoList.tasks(i);
-      console.log(task);
       const taskId = task[0].toNumber();
       const taskContent = task[1];
       const taskCompleted = task[2];
@@ -120,6 +119,7 @@ App = {
   createTask: async () => {
     App.setLoading(true);
     const content = $("#newTask").val();
+    window.onload = (event) => console.log("page is loaded");
     await App.todoList.createTask(content);
     window.location.reload();
   },
